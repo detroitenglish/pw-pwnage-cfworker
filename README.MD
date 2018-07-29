@@ -88,7 +88,7 @@ Failure will return JSON to inform you that something's not `ok` and a `message`
 ```
 
 ### Good to Know
-The health-check endpoint `/_up` is included by default. Useful for testing CORS madness 👍
+Send a `GET` request to act as a little health-check. Useful for testing CORS madness 👍
 
 
 ## Because Software
