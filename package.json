@@ -14,14 +14,14 @@
   "config": {
     "ALLOWED_ORIGIN": "*",
     "ALWAYS_RETURN_SCORE": false,
-    "CORS_MAXAGE": 300
+    "CORS_MAXAGE": 350
   },
   "homepage": "https://github.com/detroitenglish/pw-pwnage-cfworker",
   "scripts": {
     "clean": "del-cli ./dist/*",
     "bundle": "webpack",
     "upload": "node scripts/deploy",
-    "deploy": "npm-run-all clean bundle upload"
+    "deploy": "npm-run-all -s clean bundle upload"
   },
   "devDependencies": {
     "axios": "^0.18.0",

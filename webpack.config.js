@@ -1,3 +1,5 @@
+require('dotenv').config({ path: __dirname + '/cloudflare.env' })
+
 const webpack = require('webpack')
 
 const { ALLOWED_ORIGIN, ALWAYS_RETURN_SCORE, CORS_MAXAGE } = process.env
@@ -11,6 +13,9 @@ module.exports = {
   mode: 'production',
   optimization: {
     minimize: false,
+  },
+  performance: {
+    hints: false,
   },
   plugins: [
     new webpack.DefinePlugin({
