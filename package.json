@@ -1,0 +1,53 @@
+{
+  "name": "pw-pwnage-cfworker",
+  "description": "A Cloudflare Worker to sanely score users' new passwords with zxcvbn AND check for breaches against haveibeenpwned.",
+  "author": "Dave Willenberg <dave@detroit-english.de> (https://github.com/detroitenglish)",
+  "version": "0.0.1",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/detroitenglish/pw-pwnage-cfworker"
+  },
+  "bugs": {
+    "url": "https://github.com/detroitenglish/pw-pwnage-cfworker/issues"
+  },
+  "config": {
+    "ALLOWED_ORIGIN": "*",
+    "ALWAYS_RETURN_SCORE": false,
+    "CORS_MAXAGE": 300
+  },
+  "homepage": "https://github.com/detroitenglish/pw-pwnage-cfworker",
+  "scripts": {
+    "clean": "del-cli ./dist/*",
+    "bundle": "webpack",
+    "upload": "node scripts/deploy",
+    "deploy": "npm-run-all clean bundle upload"
+  },
+  "devDependencies": {
+    "axios": "^0.18.0",
+    "@babel/cli": "^7.0.0-beta.51",
+    "@babel/core": "^7.0.0-beta.51",
+    "@babel/plugin-proposal-optional-chaining": "^7.0.0-beta.51",
+    "@babel/polyfill": "^7.0.0-beta.51",
+    "@babel/preset-env": "^7.0.0-beta.51",
+    "babel-eslint": "^8.2.5",
+    "babel-loader": "^8.0.0-beta",
+    "cross-env": "^5.2.0",
+    "del-cli": "^1.1.0",
+    "dotenv": "^6.0.0",
+    "eslint": "^5.0.1",
+    "eslint-config-prettier": "^2.9.0",
+    "eslint-plugin-babel": "^5.1.0",
+    "eslint-plugin-prettier": "^2.6.1",
+    "npm-run-all": "^4.1.3",
+    "prettier": "^1.13.7",
+    "webpack": "^4.14.0",
+    "webpack-cli": "^3.0.8"
+  },
+  "dependencies": {
+    "zxcvbn": "^4.4.2"
+  },
+  "engines": {
+    "node": ">=6"
+  }
+}
