@@ -132,27 +132,14 @@ async function sha1(str) {
   return await crypto.subtle.digest(`SHA-1`, buffer).then(hexify)
 }
 
-// Can I copy your homework?
-// Yeah just change it up a bit so it doesn't look too obvious.
-// (6 - 10% quicker on my machine for Chrome + Firefox)
 function hexify(buffer) {
-  var hexCodes = ''
-  var view = new DataView(buffer)
-  for (var i = 0; i < view.byteLength; i += 4) {
-
-    // if you have a taste for fancy newish ecmascript (maniac).
-    // Supported everywhere other than internet exploder I think
-    // ----------------------------------------------------------
-    hexCodes += view.getUint32(i).toString(16).padStart(8, '0'); 
-
-    // if you prefer good old-fashioned run everywhere javascript
-    // at a similar performance point
-    // ----------------------------------------------------------
-    /* var stringValue = view.getUint32(i).toString(16);    
-    for (var j = 0; j < 8 - stringValue.length; j++) {
-      hexCodes += '0';
-    }
-    hexCodes += stringValue; */
+  let hexCodes = ''
+  const view = new DataView(buffer)
+  for (let i = 0; i < view.byteLength; i += 4) {
+    hexCodes += view
+      .getUint32(i)
+      .toString(16)
+      .padStart(8, '0')
   }
-  return hexCodes.toUpperCase();
+  return hexCodes.toUpperCase()
 }
