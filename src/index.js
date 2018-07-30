@@ -8,13 +8,7 @@ addEventListener(`fetch`, event => {
   event.respondWith(judgePassword(event.request))
 })
 
-/*
- "I will judge him with plague and bloodshed.
-  I will rain down on him, his troops
-  and the many peoples who are with him a torrential downpour,
-  hailstones, fire, and brimstone."
-    - Ezekiel 38:22
- */
+// Rain down the judgement...
 async function judgePassword(request) {
   // Ignore any other request methods
   if (!/POST|GET|OPTIONS/.test(request.method)) return await fetch(request)
@@ -94,6 +88,8 @@ async function judgePassword(request) {
   })
 }
 
+// Search haveibeenpwned by range using k-anonymity model. Docs for that here:
+//    https://haveibeenpwned.com/API/v2#SearchingPwnedPasswordsByRange
 async function checkForPwnage(password) {
   // hash the input and... arrayify it
   const hash = Array.from(await sha1(password))
@@ -122,7 +118,6 @@ async function checkForPwnage(password) {
   return +result.groups.pwned
 }
 
-// at least I didn't publish this function to npm...
 function isNumber(val) {
   return Number.isSafeInteger(+val)
 }
