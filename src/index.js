@@ -132,16 +132,14 @@ async function sha1(str) {
   return await crypto.subtle.digest(`SHA-1`, buffer).then(hexify)
 }
 
-// definitlely did not copy and paste this from StackOverflow.
 function hexify(buffer) {
-  var hexCodes = []
-  var view = new DataView(buffer)
-  for (var i = 0; i < view.byteLength; i += 4) {
-    var value = view.getUint32(i)
-    var stringValue = value.toString(16)
-    var padding = `00000000`
-    var paddedValue = (padding + stringValue).slice(-padding.length)
-    hexCodes.push(paddedValue)
+  let hexCodes = ''
+  const view = new DataView(buffer)
+  for (let i = 0; i < view.byteLength; i += 4) {
+    hexCodes += view
+      .getUint32(i)
+      .toString(16)
+      .padStart(8, '0')
   }
-  return hexCodes.join(``).toUpperCase()
-} // jk I totally copy and pasted this from StackOverflow 💩
+  return hexCodes.toUpperCase()
+}
