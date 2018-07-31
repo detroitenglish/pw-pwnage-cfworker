@@ -103,14 +103,14 @@ async function checkForPwnage(password) {
   // range-search haveibeenpwned with the prefix
   const range = await fetch(
     `https://api.pwnedpasswords.com/range/${prefix}`
-  ).then(data => data.text());
+  ).then(data => data.text())
   
   // split the API results into an array and search for the suffix
-  const match = range.split('\r\n').find(r => r.includes(suffix));
+  const match = range.split('\r\n').find(r => r.includes(suffix))
   
   // if match is undefined return zero (no pwnage), 
   // otherwise spill the beans on how pwned it is
-  return !match ? 0 : +match.slice(36);
+  return !match ? 0 : +match.slice(36)
 }
 
 function isNumber(val) {
