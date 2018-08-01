@@ -91,7 +91,7 @@ async function judgePassword(request) {
 // Search haveibeenpwned by range using k-anonymity model. Docs for that here:
 //    https://haveibeenpwned.com/API/v2#SearchingPwnedPasswordsByRange
 async function checkForPwnage(password) {
-  // hash the input and... don't arrayify it?
+  // hash the input
   const hash = await sha1(password)
 
   // snatch the first 5 characters
@@ -104,13 +104,13 @@ async function checkForPwnage(password) {
   const range = await fetch(
     `https://api.pwnedpasswords.com/range/${prefix}`
   ).then(data => data.text())
-  
+
   // split the API results into an array and search for the suffix
   const match = range.split('\r\n').find(r => r.includes(suffix))
-  
-  // if match is undefined return zero (no pwnage), 
-  // otherwise spill the beans on how pwned it is
-  return !match ? 0 : +match.slice(36)
+
+  // if match is undefined return zero (no pwnage),
+  // otherwise return number of pwned password matches
+  return !match ? 0 : +match.split(':')[1]
 }
 
 function isNumber(val) {
