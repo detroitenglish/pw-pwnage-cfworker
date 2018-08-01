@@ -105,12 +105,16 @@ async function checkForPwnage(password) {
     `https://api.pwnedpasswords.com/range/${prefix}`
   ).then(data => data.text())
 
+  // if the suffix nowhere in response, there's no pwnage
+  if (!range.includes(suffix)) {
+    return 0
+  }
+
   // split the API results into an array and search for the suffix
   const match = range.split('\r\n').find(r => r.includes(suffix))
 
-  // if match is undefined return zero (no pwnage),
-  // otherwise return number of pwned password matches
-  return !match ? 0 : +match.split(':')[1]
+  // return number of pwned password matches
+  return +match.split(':')[1]
 }
 
 function isNumber(val) {
