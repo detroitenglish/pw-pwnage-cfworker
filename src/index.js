@@ -114,7 +114,7 @@ async function checkForPwnage(password) {
   const match = range.split('\r\n').find(r => r.includes(suffix))
 
   // return number of pwned password matches
-  return +match.split(':')[1]
+  return +match.split(':').pop()
 }
 
 function isNumber(val) {
