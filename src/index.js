@@ -26,7 +26,7 @@ async function judgePassword(request) {
   if (ALLOWED_ORIGIN_PATTERNS) {
     // create array of regex patterns to test origin
     const originPatterns = ALLOWED_ORIGIN_PATTERNS.split(',').map(pattern =>
-      RegExp(pattern.replace(/\./g, '\\.'))
+      RegExp(pattern)
     )
     // test request origin against allowed patters
     if (originPatterns.some(pattern => pattern.test(origin))) {
