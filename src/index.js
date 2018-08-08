@@ -23,7 +23,7 @@ async function judgePassword(request) {
 
   // const originPatterns = []
 
-  if (ALLOWED_ORIGIN_PATTERNS) {
+  if (ALLOWED_ORIGIN_PATTERNS.length) {
     // create array of regex patterns to test origin
     const originPatterns = ALLOWED_ORIGIN_PATTERNS.split(',').map(pattern =>
       RegExp(pattern)
