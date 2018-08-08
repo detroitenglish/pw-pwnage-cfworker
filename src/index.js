@@ -1,4 +1,4 @@
-/* globals ALLOWED_ORIGIN, ALWAYS_RETURN_SCORE, CORS_MAXAGE */
+/* globals ALLOWED_ORIGIN, ALLOWED_ORIGIN_PATTERNS, ALWAYS_RETURN_SCORE, CORS_MAXAGE, LAST_MODIFIED */
 
 // this +400kb beast of a library is why we'll let webpack build our worker script
 const zxcvbn = require(`zxcvbn`)
@@ -15,9 +15,30 @@ async function judgePassword(request) {
 
   let password
 
+  // set default origin for CORS
+  let allowOrigin = ALLOWED_ORIGIN
+
+  // origin of incoming request
+  const origin = request.headers.get('origin')
+
+  // const originPatterns = []
+
+  if (ALLOWED_ORIGIN_PATTERNS) {
+    // create array of regex patterns to test origin
+    const originPatterns = ALLOWED_ORIGIN_PATTERNS.split(',').map(pattern =>
+      RegExp(pattern.replace(/\./g, '\\.'))
+    )
+    // test request origin against allowed patters
+    if (originPatterns.some(pattern => pattern.test(origin))) {
+      // if there's a match, return request origin as allowed
+      // if not, allowed origin falls back to ALLOWED_ORIGIN (or default '*')
+      allowOrigin = origin
+    }
+  }
+
   // Return failure indication and error message if shit gets weird somehow
-  const bail = (err = new Error(`Something done goofed 💩`), status = 500) =>
-    new Response(
+  function bail(err = new Error(`Something done goofed 💩`), status = 500) {
+    return new Response(
       JSON.stringify({
         ok: false,
         message: err.message,
@@ -27,13 +48,15 @@ async function judgePassword(request) {
         status,
       }
     )
+  }
 
   // Goofy looking utility for our response headers
   const theHeaders = includeContentType => ({
-    'access-control-allow-origin': ALLOWED_ORIGIN,
+    'access-control-allow-origin': allowOrigin,
     'access-control-expose-headers': `content-type`,
     'access-control-allow-headers': `content-type`,
     'access-control-max-age': isNumber(CORS_MAXAGE) ? +CORS_MAXAGE : 300,
+    'x-worker-last-modified': LAST_MODIFIED,
     'content-type': includeContentType ? `application/json` : void 0,
   })
 
