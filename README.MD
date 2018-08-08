@@ -32,9 +32,7 @@ The following options are configurable via `cloudflare.env`:
 - `ALLOWED_ORIGIN`: Whitelisted origin for Cross Origin Resource Sharing. If not provided, all origins are allowed (default: `*`)
 
 - `ALLOWED_ORIGIN_PATTERNS`: Comma-seperated list of strings to be converted to `RegExp` patterns for testing the incoming request origin. If the origin matches, it's returned as allowed. If no pattern is matched, CORS falls back to the configured `ALLOWED_ORIGIN` (default: `undefined`)
-    - Example: `"(foo|bar|buzz)\\.example\\.lol,yet\\.another\\.example\\.omg"`
-
-  Mind your character escaping, as each pattern is created via `new RegExp(pattern)`
+    - Example: `"(foo|bar|buzz)\.example\.lol,yet\.another\.example\.omg"`
 
 - `CORS_MAXAGE`: Value in seconds for the `Access-Control-Max-Age` CORS header (default: `"300"`)
 
