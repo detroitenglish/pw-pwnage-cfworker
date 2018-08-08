@@ -9,6 +9,13 @@ const {
   CORS_MAXAGE = 300,
 } = process.env
 
+if (ALLOWED_ORIGIN_PATTERNS.length) {
+  const patterns = ALLOWED_ORIGIN_PATTERNS.split(',').map(p =>
+    RegExp(p).toString()
+  )
+  console.info(`Allowed origin patterns: ${patterns.join(', ')}`)
+}
+
 module.exports = {
   entry: './src/index.js',
   output: {
