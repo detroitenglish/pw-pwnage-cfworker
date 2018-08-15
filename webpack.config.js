@@ -19,14 +19,20 @@ if (ALLOWED_ORIGIN_PATTERNS.length) {
 }
 
 module.exports = {
-  entry: './src/index.js',
+  entry: ['@babel/polyfill', __dirname + '/src/index.js'],
   output: {
     path: __dirname + '/dist',
     filename: 'index.js',
   },
   mode: 'production',
-  optimization: {
-    minimize: false,
+  module: {
+    rules: [
+      {
+        test: /\.js$/,
+        loader: 'babel-loader?cacheDirectory=.babelcache',
+        exclude: [/frequency_lists/],
+      },
+    ],
   },
   performance: {
     hints: false,
