@@ -1,9 +1,13 @@
 {
   "presets": [
-    ["@babel/env", {
-      "modules": false,
-      "loose": true,
-      "useBuiltIns": "usage"
-    }]
-  ]
+    [
+      "@babel/preset-env",
+      {
+        "modules": false,
+        "loose": true,
+        "useBuiltIns": "usage"
+      }
+    ]
+  ],
+  "plugins": ["closure-elimination"]
 }
