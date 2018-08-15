@@ -10,7 +10,7 @@ Deploy a private, secure and serverless RESTful endpoint for sanely scoring user
 <br>
 <br>
 ## Motivation
-<a href="https://twitter.com/DetroitEnglish/status/1008276231199055874" target="_blank">People seemed to think this concept was neat</a> - and tiny RESTful API like this is a perfect use case for a mighty little [**Cloudflare Worker**](https://developers.cloudflare.com/workers/).
+<a href="https://twitter.com/DetroitEnglish/status/1008276231199055874" target="_blank">People seemed to think this concept was neat</a>, and a tiny RESTful API like this is a perfect use case for a mighty little [**Cloudflare Worker**](https://developers.cloudflare.com/workers/).
 
 As a bonus, [over 90%](https://twitter.com/troyhunt/status/1011871596603060225) of `pwnedpassword` queries are already cached on and served from Cloudflare's edge, making our response times _spooky_ fast! 👻
 
@@ -37,6 +37,10 @@ The following options are configurable via `cloudflare.env`:
 - `CORS_MAXAGE`: Value in seconds for the `Access-Control-Max-Age` CORS header (default: `"300"`)
 
 - `ALWAYS_RETURN_SCORE`: Return the `zxcvbn` score even if the `pwnedpasswords` match value is > 0. See [Response](#Response) for details (default: `undefined`, thereby `false`)
+
+- `CUSTOM_PW_DICT`: Comma-seperated list of words/phrases to be included in the `zxcvbn` strength estimation dictionary. It's a good idea to include e.g. your company or application name here (default: `''`)
+
+- `RETURN_PW_METADATA`: Return the full result of the `zxcvbn` strength estimation as a `metadata` response key. Refer to the [zxcvbn documentation](https://github.com/dropbox/zxcvbn#usage) for details on what that includes (default: `undefined`, thereby `false`)
 
 ### Updating
 
@@ -82,6 +86,8 @@ Our little worker-bro will reply with an appropriate status code, and JSON body 
 }
 ```
 By default, if `pwned` is greater than 0, then `score` will **always** be 0. You can override this behavior by settings `"ALWAYS_RETURN_SCORE"` to `true` in `cloudflare.env`
+
+If `RETURN_PW_METADATA` is truthy, responses will also include a `metadata` key with the complete `zxcvbn` [strength estimation result object](https://github.com/dropbox/zxcvbn#usage).
 
 Each response will also contain a `x-worker-last-modified` header with a timestamp indicating when the script was built and deployed.
 
