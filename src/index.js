@@ -38,6 +38,7 @@ async function judgePassword(request) {
     }
   }
 
+  // Add user-defined entries to zxcvbn terms dictionary
   if (CUSTOM_PW_DICT.length) {
     customDict.push(...CUSTOM_PW_DICT.split(','))
   }
@@ -101,7 +102,9 @@ async function judgePassword(request) {
 
   let { score } = strength
 
+  // Return full zxcvbn result if so configured
   if (RETURN_PW_METADATA) metadata = strength
+
   // not sure how this could even happen, but I don't trust me, so we'll validate
   if (!isNumber(score) || !isNumber(pwned)) {
     return bail()
