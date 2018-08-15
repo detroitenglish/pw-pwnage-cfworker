@@ -1,4 +1,4 @@
-/* globals ALLOWED_ORIGIN, ALLOWED_ORIGIN_PATTERNS, ALWAYS_RETURN_SCORE, CORS_MAXAGE, LAST_MODIFIED */
+/* globals ALLOWED_ORIGIN, ALLOWED_ORIGIN_PATTERNS, ALWAYS_RETURN_SCORE, CORS_MAXAGE, LAST_MODIFIED, CUSTOM_PW_DICT, RETURN_PW_METADATA  */
 
 // this +400kb beast of a library is why we'll let webpack build our worker script
 const zxcvbn = require(`zxcvbn`)
@@ -13,10 +13,12 @@ async function judgePassword(request) {
   // Ignore any other request methods
   if (!/POST|GET|OPTIONS/.test(request.method)) return await fetch(request)
 
-  let password
+  let password, metadata
 
   // set default origin for CORS
   let allowOrigin = ALLOWED_ORIGIN
+
+  let customDict = []
 
   // origin of incoming request
   const origin = request.headers.get('origin')
@@ -34,6 +36,10 @@ async function judgePassword(request) {
       // if not, allowed origin falls back to ALLOWED_ORIGIN (or default '*')
       allowOrigin = origin
     }
+  }
+
+  if (CUSTOM_PW_DICT.length) {
+    customDict.push(...CUSTOM_PW_DICT.split(','))
   }
 
   // Return failure indication and error message if shit gets weird somehow
@@ -82,7 +88,7 @@ async function judgePassword(request) {
 
   // run strength estimation and range query in parallel because why not
   let results = await Promise.all([
-    zxcvbn(password),
+    zxcvbn(password, customDict),
     checkForPwnage(password),
   ]).catch(err => err)
 
@@ -95,6 +101,7 @@ async function judgePassword(request) {
 
   let { score } = strength
 
+  if (RETURN_PW_METADATA) metadata = strength
   // not sure how this could even happen, but I don't trust me, so we'll validate
   if (!isNumber(score) || !isNumber(pwned)) {
     return bail()
@@ -106,7 +113,7 @@ async function judgePassword(request) {
   }
 
   // The worker has spoken:
-  return new Response(JSON.stringify({ ok: true, score, pwned }), {
+  return new Response(JSON.stringify({ ok: true, score, pwned, metadata }), {
     headers: theHeaders(true),
   })
 }
