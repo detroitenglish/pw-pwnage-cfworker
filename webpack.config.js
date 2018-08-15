@@ -19,17 +19,18 @@ if (ALLOWED_ORIGIN_PATTERNS.length) {
 }
 
 module.exports = {
-  entry: ['@babel/polyfill', __dirname + '/src/index.js'],
+  entry: __dirname + '/src/index.js',
   output: {
     path: __dirname + '/dist',
     filename: 'index.js',
   },
+  target: 'webworker',
   mode: 'production',
   module: {
     rules: [
       {
         test: /\.js$/,
-        loader: 'babel-loader?cacheDirectory=.babelcache',
+        loader: 'babel-loader',
         exclude: [/frequency_lists/],
       },
     ],
