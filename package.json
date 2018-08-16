@@ -13,7 +13,7 @@
   },
   "homepage": "https://github.com/detroitenglish/pw-pwnage-cfworker",
   "scripts": {
-    "precommit": "./node_modules/.bin/eslint src/*",
+    "precommit": "./node_modules/.bin/eslint src scripts",
     "build": "webpack",
     "upload": "node scripts/deploy",
     "deploy": "npm-run-all -s build upload"
