@@ -1,6 +1,7 @@
 require('dotenv').config({ path: __dirname + '/cloudflare.env' })
 
 const webpack = require('webpack')
+const CleanWebpackPlugin = require('clean-webpack-plugin')
 
 const {
   ALLOWED_ORIGIN = '*',
@@ -39,6 +40,11 @@ module.exports = {
     hints: false,
   },
   plugins: [
+    new CleanWebpackPlugin(`dist/*`, {
+      root: __dirname,
+      verbose: false,
+    }),
+
     new webpack.DefinePlugin({
       ALLOWED_ORIGIN: JSON.stringify(ALLOWED_ORIGIN),
       ALLOWED_ORIGIN_PATTERNS: JSON.stringify(ALLOWED_ORIGIN_PATTERNS),
