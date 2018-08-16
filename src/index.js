@@ -1,3 +1,4 @@
+/* eslint-env worker, browser */
 /* globals ALLOWED_ORIGIN, ALLOWED_ORIGIN_PATTERNS, ALWAYS_RETURN_SCORE, CORS_MAXAGE, LAST_MODIFIED, CUSTOM_PW_DICT, RETURN_PW_METADATA  */
 
 // this +400kb beast of a library is why we'll let webpack build our worker script
@@ -22,8 +23,6 @@ async function judgePassword(request) {
 
   // origin of incoming request
   const origin = request.headers.get('origin')
-
-  // const originPatterns = []
 
   if (ALLOWED_ORIGIN_PATTERNS.length) {
     // create array of regex patterns to test origin

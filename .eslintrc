@@ -2,7 +2,6 @@
   "env": {
     "node": true,
     "es6": true,
-    "browser": true
   },
   "parser": "babel-eslint",
   "plugins": ["prettier", "babel"],
