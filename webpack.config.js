@@ -2,7 +2,7 @@ require('dotenv').config({ path: __dirname + '/cloudflare.env' })
 
 const webpack = require('webpack')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
-const CloudflareWorkerPlugin = require(`./../cloudflare-worker-webpack-plugin/dist`)
+const CloudflareWorkerPlugin = require(`cloudflare-worker-webpack-plugin`)
 
 const {
   ALLOWED_ORIGIN = '*',
