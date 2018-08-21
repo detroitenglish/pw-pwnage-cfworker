@@ -2,6 +2,7 @@ require('dotenv').config({ path: __dirname + '/cloudflare.env' })
 
 const webpack = require('webpack')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
+const CloudflareWorkerPlugin = require(`./../cloudflare-worker-webpack-plugin/dist`)
 
 const {
   ALLOWED_ORIGIN = '*',
@@ -10,6 +11,10 @@ const {
   CORS_MAXAGE = 300,
   RETURN_PW_METADATA = false,
   CUSTOM_PW_DICT = '',
+  ROUTE_PATTERN,
+  AUTH_EMAIL,
+  AUTH_KEY,
+  ZONE_ID,
 } = process.env
 
 if (ALLOWED_ORIGIN_PATTERNS.length) {
@@ -53,6 +58,12 @@ module.exports = {
       RETURN_PW_METADATA: JSON.stringify(!!RETURN_PW_METADATA),
       CUSTOM_PW_DICT: JSON.stringify(CUSTOM_PW_DICT),
       LAST_MODIFIED: JSON.stringify(new Date().toJSON()),
+    }),
+
+    new CloudflareWorkerPlugin(AUTH_EMAIL, AUTH_KEY, {
+      enabled: false,
+      zone: ZONE_ID,
+      pattern: ROUTE_PATTERN,
     }),
   ],
 }

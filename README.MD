@@ -19,15 +19,15 @@ As a bonus, [over 90%](https://twitter.com/troyhunt/status/1011871596603060225) 
 
 ## Quick Start
 
-1. Rename `example.cloudflare.env` to `cloudflare.env` and edit the values as needed.
-2. Configure the route matching pattern via the CF browser dash or some other means (route pattern management is not baked-in - yet!)
-3. Install deps with `npm install`
-4. Launch 🚀 with `npm run deploy`
+1. Rename `example.cloudflare.env` to `cloudflare.env` and edit the configuration as needed.
+2. Install deps with `npm install`
+3. Launch 🚀 with `npm run deploy`
 
 ### Configuration
-**NOTE**: You MUST configure your request route matching pattern manually for now! Full auto-deployment with route patterns is in the works...
 
 The following options are configurable via `cloudflare.env`:
+
+- `ROUTE_PATTERN`: Optionally include a route-matching pattern for your worker. Note that this will disable any other enabled patterns that (default: `undefined`)
 
 - `ALLOWED_ORIGIN`: Whitelisted origin for Cross Origin Resource Sharing. If not provided, all origins are allowed (default: `*`)
 
