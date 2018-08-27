@@ -10,9 +10,9 @@ Deploy a private, secure and serverless RESTful endpoint for sanely scoring user
 <br>
 <br>
 ## Motivation
-<a href="https://twitter.com/DetroitEnglish/status/1008276231199055874" target="_blank">People seemed to think this concept was neat</a>, and a tiny RESTful API like this is a perfect use case for a mighty little [**Cloudflare Worker**](https://developers.cloudflare.com/workers/).
+<a href="https://twitter.com/DetroitEnglish/status/1008276231199055874" target="_blank">People seemed to think this concept was neat</a>, and a tiny RESTful API like this is a perfect use case for [**Cloudflare Workers**](https://developers.cloudflare.com/workers/).
 
-As a bonus, [over 90%](https://twitter.com/troyhunt/status/1011871596603060225) of `pwnedpassword` queries are already cached on and served from Cloudflare's edge, making our response times _spooky_ fast! 👻
+As a bonus, [over 90%](https://twitter.com/troyhunt/status/1011871596603060225) of `pwnedpassword` queries are already cached on Cloudflare's edge, making response times _spooky_ fast 👻
 
 
 ---
