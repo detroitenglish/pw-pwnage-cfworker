@@ -5,7 +5,11 @@
       {
         "modules": false,
         "loose": true,
-        "useBuiltIns": "usage"
+        "useBuiltIns": "usage",
+        "debug": false,
+        "exclude": [
+          "web.dom.iterable"
+        ]
       }
     ]
   ],
