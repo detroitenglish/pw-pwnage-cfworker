@@ -45,6 +45,10 @@ module.exports = {
   performance: {
     hints: false,
   },
+  node: false,
+  optimization: {
+    minimize: false,
+  },
   plugins: [
     new CleanWebpackPlugin(`dist/*`, {
       root: __dirname,
@@ -62,7 +66,7 @@ module.exports = {
     }),
 
     new CloudflareWorkerPlugin(AUTH_EMAIL, AUTH_KEY, {
-      enabled: true,
+      enabled: !process.env.NO_UPLOAD,
       zone: ZONE_ID,
       site: SITE_NAME,
       pattern: ROUTE_PATTERN,
