@@ -27,7 +27,7 @@ As a bonus, [over 90%](https://twitter.com/troyhunt/status/1011871596603060225) 
 
 The following options are configurable via `cloudflare.env`:
 
-- `ROUTE_PATTERN`: Optionally include a route-matching pattern for your worker. Note that this will disable any other enabled patterns that (default: `undefined`)
+- `ROUTE_PATTERN`: Optionally include a route-matching pattern for your worker. See [`example.cloudflare.env`](./example.cloudflare.env) for details on how patterns are parsed and applied (default: `undefined`)
 
 - `ALLOWED_ORIGIN`: Whitelisted origin for Cross Origin Resource Sharing. If not provided, all origins are allowed (default: `*`)
 
