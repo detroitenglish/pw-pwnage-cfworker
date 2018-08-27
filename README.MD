@@ -10,24 +10,24 @@ Deploy a private, secure and serverless RESTful endpoint for sanely scoring user
 <br>
 <br>
 ## Motivation
-<a href="https://twitter.com/DetroitEnglish/status/1008276231199055874" target="_blank">People seemed to think this concept was neat</a>, and a tiny RESTful API like this is a perfect use case for a mighty little [**Cloudflare Worker**](https://developers.cloudflare.com/workers/).
+<a href="https://twitter.com/DetroitEnglish/status/1008276231199055874" target="_blank">People seemed to think this concept was neat</a>, and a tiny RESTful API like this is a perfect use case for [**Cloudflare Workers**](https://developers.cloudflare.com/workers/).
 
-As a bonus, [over 90%](https://twitter.com/troyhunt/status/1011871596603060225) of `pwnedpassword` queries are already cached on and served from Cloudflare's edge, making our response times _spooky_ fast! 👻
+As a bonus, [over 90%](https://twitter.com/troyhunt/status/1011871596603060225) of `pwnedpassword` queries are already cached on Cloudflare's edge, making response times _spooky_ fast 👻
 
 
 ---
 
 ## Quick Start
 
-1. Rename `example.cloudflare.env` to `cloudflare.env` and edit the values as needed.
-2. Configure the route matching pattern via the CF browser dash or some other means (route pattern management is not baked-in - yet!)
-3. Install deps with `npm install`
-4. Launch 🚀 with `npm run deploy`
+1. Rename `example.cloudflare.env` to `cloudflare.env` and edit the configuration as needed.
+2. Install deps with `npm install`
+3. Launch 🚀 with `npm run deploy`
 
 ### Configuration
-**NOTE**: You MUST configure your request route matching pattern manually for now! Full auto-deployment with route patterns is in the works...
 
 The following options are configurable via `cloudflare.env`:
+
+- `ROUTE_PATTERN`: Optionally include a route-matching pattern for your worker. See [`example.cloudflare.env`](./example.cloudflare.env) for details on how patterns are parsed and applied (default: `undefined`)
 
 - `ALLOWED_ORIGIN`: Whitelisted origin for Cross Origin Resource Sharing. If not provided, all origins are allowed (default: `*`)
 
