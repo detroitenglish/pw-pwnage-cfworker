@@ -2,7 +2,7 @@
   "name": "pw-pwnage-cfworker",
   "description": "A Cloudflare Worker to sanely score users' new passwords with zxcvbn AND check for breaches against haveibeenpwned.",
   "author": "Dave Willenberg <dave@detroit-english.de> (https://github.com/detroitenglish)",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "license": "MIT",
   "repository": {
     "type": "git",
