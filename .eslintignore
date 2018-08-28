@@ -2,3 +2,4 @@ lambda.js
 app
 dist
 tmp
+!.babelrc.js
