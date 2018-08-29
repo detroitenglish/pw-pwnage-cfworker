@@ -15,7 +15,7 @@
   "scripts": {
     "precommit": "./node_modules/.bin/eslint src webpack.config.js",
     "test": "cross-env NO_UPLOAD=1 npm run deploy",
-    "deploy": "webpack"
+    "deploy": "webpack --display none"
   },
   "devDependencies": {
     "babel-eslint": "^9.0.0",
