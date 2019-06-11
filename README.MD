@@ -1,6 +1,6 @@
 # Enlist a Cloudflare Worker as your Secure Password Scoring and Pwnage Protection API
 
-(Prefer serverless? [See the AWS Lambda version here](https://github.com/detroitenglish/haveibeenpwned-zxcvbn-lambda-api))
+(Prefer traditional sourcery? [See the AWS Lambda version here](https://github.com/detroitenglish/haveibeenpwned-zxcvbn-lambda-api))
 
 Deploy a private, secure and serverless RESTful endpoint for sanely scoring users' new passwords using Dropbox's [`zxcvbn`](https://github.com/dropbox/zxcvbn) library while (k-)anonymously querying Troy Hunt's [`haveibeenpwned`](https://haveibeenpwned.com/) collection of +5.1 *billion* breached accounts.
 
