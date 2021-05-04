@@ -1,19 +1,20 @@
 # Enlist a Cloudflare Worker as your Secure Password Scoring and Pwnage Protection API
 
-(Prefer traditional sorcery? [See the AWS Lambda version here](https://github.com/detroitenglish/haveibeenpwned-zxcvbn-lambda-api))
+(Prefer traditional serverless sorcery? [See the AWS Lambda version here](https://github.com/detroitenglish/haveibeenpwned-zxcvbn-lambda-api))
 
-Deploy a private, secure and serverless RESTful endpoint for sanely scoring users' new passwords using Dropbox's [`zxcvbn`](https://github.com/dropbox/zxcvbn) library while (k-)anonymously querying Troy Hunt's [`haveibeenpwned`](https://haveibeenpwned.com/) collection of +5.1 *billion* breached accounts.
+Deploy a private, secure and serverless RESTful endpoint for sanely scoring users' new passwords using Dropbox's [`zxcvbn`](https://github.com/dropbox/zxcvbn) library while (k-)anonymously querying Troy Hunt's [`haveibeenpwned`](https://haveibeenpwned.com/) collection of +10 _billion_ breached accounts.
 
-![API in Action](.github/pwnage.gif?raw=true "API in Action")
+![API in Action](.github/pwnage.gif?raw=true 'API in Action')
 
-&nbsp;&nbsp;&nbsp;&nbsp;*Example: handling results with [VuetifyJS](https://github.com/vuetifyjs/vuetify)*
+&nbsp;&nbsp;&nbsp;&nbsp;_Example: handling results with [VuetifyJS](https://github.com/vuetifyjs/vuetify)_
 <br>
 <br>
+
 ## Motivation
+
 <a href="https://twitter.com/DetroitEnglish/status/1008276231199055874" target="_blank">People seemed to think this concept was neat</a>, and a tiny RESTful API like this is a perfect use case for [**Cloudflare Workers**](https://developers.cloudflare.com/workers/).
 
 As a bonus, [over 90%](https://twitter.com/troyhunt/status/1011871596603060225) of `pwnedpassword` queries are already cached on Cloudflare's edge, making response times _spooky_ fast 👻
-
 
 ---
 
@@ -32,7 +33,8 @@ The following options are configurable via `cloudflare.env`:
 - `ALLOWED_ORIGIN`: Whitelisted origin for Cross Origin Resource Sharing. If not provided, all origins are allowed (default: `*`)
 
 - `ALLOWED_ORIGIN_PATTERNS`: Comma-seperated list of strings to be converted to `RegExp` patterns for testing the incoming request origin. If the origin matches, it's returned as allowed. If no pattern is matched, CORS falls back to the configured `ALLOWED_ORIGIN` (default: `undefined`)
-    - Example: `"(foo|bar|buzz)\.example\.lol,yet\.another\.example\.omg"`
+
+  - Example: `"(foo|bar|buzz)\.example\.lol,yet\.another\.example\.omg"`
 
 - `CORS_MAXAGE`: Value in seconds for the `Access-Control-Max-Age` CORS header (default: `"300"`)
 
@@ -58,6 +60,7 @@ POST user password input to your route as JSON with field `password` like so:
   "password": "monkey123"
 }
 ```
+
 ```javascript
 // stronger password
 {
@@ -77,6 +80,7 @@ Our little worker-bro will reply with an appropriate status code, and JSON body 
     "pwned": 56491
 }
 ```
+
 ```javascript
 // stronger password 'wonderful waffles'
 {
@@ -85,6 +89,7 @@ Our little worker-bro will reply with an appropriate status code, and JSON body 
     "pwned": 0
 }
 ```
+
 By default, if `pwned` is greater than 0, then `score` will **always** be 0. You can override this behavior by settings `"ALWAYS_RETURN_SCORE"` to `true` in `cloudflare.env`
 
 If `RETURN_PW_METADATA` is truthy, responses will also include a `metadata` key with the complete `zxcvbn` [strength estimation result object](https://github.com/dropbox/zxcvbn#usage).
@@ -97,18 +102,19 @@ Failure will return JSON to inform you that something's not `ok` and a `message`
 
 ```json
 {
-    "ok": false,
-    "message": "It went kaput 💩"
+  "ok": false,
+  "message": "It went kaput 💩"
 }
 ```
 
 ### Good to Know
-Send a `GET` request to act as a little health-check. Response `204` means you're good to go. Useful for testing CORS configuration 👍
 
+Send a `GET` request to act as a little health-check. Response `204` means you're good to go. Useful for testing CORS configuration 👍
 
 ## Because Software
 
 ### Disclaimer
+
 I am not affiliated with Cloudflare, Troy Hunt, Dropbox, haveibeenpwned, good software development in general, or any combination thereof.
 
 Handling user passwords is no laughing matter, so handle them with care and respect.
@@ -118,4 +124,5 @@ Just like your own users, assume that I have no idea what I'm doing. This part i
 **REVIEW THE SOURCE**, and use at your own risk 🙈
 
 ### License
+
 MIT
