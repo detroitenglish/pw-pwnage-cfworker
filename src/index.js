@@ -22,11 +22,11 @@ async function judgePassword(request) {
   let customDict = []
 
   // origin of incoming request
-  const origin = request.headers.get('origin')
+  const origin = request.headers.get(`origin`)
 
   if (ALLOWED_ORIGIN_PATTERNS.length) {
     // create array of regex patterns to test origin
-    const originPatterns = ALLOWED_ORIGIN_PATTERNS.split(',').map(pattern =>
+    const originPatterns = ALLOWED_ORIGIN_PATTERNS.split(`,`).map(pattern =>
       RegExp(pattern)
     )
     // test request origin against allowed patters
@@ -39,7 +39,7 @@ async function judgePassword(request) {
 
   // Add user-defined entries to zxcvbn terms dictionary
   if (CUSTOM_PW_DICT.length) {
-    customDict.push(...CUSTOM_PW_DICT.split(','))
+    customDict.push(...CUSTOM_PW_DICT.split(`,`))
   }
 
   // Return failure indication and error message if shit gets weird somehow
@@ -143,10 +143,10 @@ async function checkForPwnage(password) {
   }
 
   // split the API results into an array and search for the suffix
-  const match = range.split('\r\n').find(r => r.includes(suffix))
+  const match = range.split(`\r\n`).find(r => r.includes(suffix))
 
   // return number of pwned password matches
-  return +match.split(':').pop()
+  return +match.split(`:`).pop()
 }
 
 function isNumber(val) {
@@ -159,13 +159,10 @@ async function sha1(str) {
 }
 
 function hexify(buffer) {
-  let hexCodes = ''
+  let hexCodes = ``
   const view = new DataView(buffer)
   for (let i = 0; i < view.byteLength; i += 4) {
-    hexCodes += view
-      .getUint32(i)
-      .toString(16)
-      .padStart(8, '0')
+    hexCodes += view.getUint32(i).toString(16).padStart(8, `0`)
   }
   return hexCodes.toUpperCase()
 }

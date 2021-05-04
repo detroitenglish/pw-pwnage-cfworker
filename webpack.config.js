@@ -1,16 +1,16 @@
-require('dotenv').config({ path: __dirname + '/cloudflare.env' })
+require(`dotenv`).config({ path: `${__dirname}/cloudflare.env` })
 
-const webpack = require('webpack')
-const CleanWebpackPlugin = require('clean-webpack-plugin')
-const CloudflareWorkerPlugin = require('cloudflare-worker-webpack-plugin')
+const webpack = require(`webpack`)
+const CleanWebpackPlugin = require(`clean-webpack-plugin`)
+const CloudflareWorkerPlugin = require(`cloudflare-worker-webpack-plugin`)
 
 const {
-  ALLOWED_ORIGIN = '*',
-  ALLOWED_ORIGIN_PATTERNS = '',
+  ALLOWED_ORIGIN = `*`,
+  ALLOWED_ORIGIN_PATTERNS = ``,
   ALWAYS_RETURN_SCORE = false,
   CORS_MAXAGE = 300,
   RETURN_PW_METADATA = false,
-  CUSTOM_PW_DICT = '',
+  CUSTOM_PW_DICT = ``,
   ROUTE_PATTERN,
   AUTH_EMAIL,
   AUTH_KEY,
@@ -19,25 +19,25 @@ const {
 } = process.env
 
 if (ALLOWED_ORIGIN_PATTERNS.length) {
-  const patterns = ALLOWED_ORIGIN_PATTERNS.split(',').map(p =>
+  const patterns = ALLOWED_ORIGIN_PATTERNS.split(`,`).map(p =>
     RegExp(p).toString()
   )
-  console.info(`Allowed origin patterns: ${patterns.join(', ')}`)
+  console.info(`Allowed origin patterns: ${patterns.join(`, `)}`)
 }
 
 module.exports = {
-  entry: __dirname + '/src/index.js',
+  entry: `${__dirname}/src/index.js`,
   output: {
-    path: __dirname + '/dist',
-    filename: 'index.js',
+    path: `${__dirname}/dist`,
+    filename: `index.js`,
   },
-  target: 'webworker',
-  mode: 'production',
+  target: `webworker`,
+  mode: `production`,
   module: {
     rules: [
       {
         test: /\.js$/,
-        loader: 'babel-loader',
+        loader: `babel-loader`,
         exclude: [/frequency_lists/],
       },
     ],
