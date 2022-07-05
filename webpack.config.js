@@ -2,7 +2,7 @@ require(`dotenv`).config({ path: `${__dirname}/cloudflare.env` })
 
 const webpack = require(`webpack`)
 const CleanWebpackPlugin = require(`clean-webpack-plugin`)
-const CloudflareWorkerPlugin = require(`cloudflare-worker-webpack-plugin`)
+const CloudflareWorkerPlugin = require(`cloudflare-workers-webpack-plugin`)
 
 const {
   ALLOWED_ORIGIN = `*`,
@@ -69,7 +69,7 @@ module.exports = {
       enabled: !process.env.NO_UPLOAD,
       zone: ZONE_ID,
       site: SITE_NAME,
-      pattern: ROUTE_PATTERN,
+      enabledPatterns: ROUTE_PATTERN,
       clearRoutes: false,
       skipWorkerUpload: false,
       verbose: true,
